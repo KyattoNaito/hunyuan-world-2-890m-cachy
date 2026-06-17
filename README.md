@@ -1,3 +1,10 @@
+## read me i guess?
+- Modernized a tiiiny bit to work with whatever cachy and pip has
+- most dependencies can be found in aur, however you will need gsplat from
+- - https://github.com/KyattoNaito/gsplat-890m-cachyos
+- check your code before running && no maintenance expected
+  
+## Original read me 
 
 
 <h1>HY-World 2.0: A Multi-Modal World Model for Reconstructing, Generating, and Simulating 3D Worlds</h1>
