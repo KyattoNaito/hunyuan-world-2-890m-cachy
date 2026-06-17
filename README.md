@@ -1,5 +1,5 @@
 ## read me i guess?
-- Modernized a tiiiny bit to work with whatever cachy and pip has
+- Modernized a tiiiny bit to work with whatever cachy and pip have
 - most dependencies can be found in aur, however you will need gsplat from
 - - https://github.com/KyattoNaito/gsplat-890m-cachyos
 - check your code before running && no maintenance expected
