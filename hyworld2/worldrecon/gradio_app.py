@@ -2,8 +2,8 @@
 Gradio demo for WorldMirror 2.0 — HunyuanWorld World Reconstruction.
 
 Usage:
-    python -m hyworld2.worldrecon.gradio_app
-    python -m hyworld2.worldrecon.gradio_app --examples_dir /path/to/examples --port 8081
+    python -m worldrecon.gradio_app
+    python -m worldrecon.gradio_app --examples_dir /path/to/examples --port 8081
 """
 
 import argparse
@@ -42,22 +42,22 @@ try:
 except ImportError:
     pass
 
-from .pipeline import WorldMirrorPipeline
-from .hyworldmirror.utils.inference_utils import (
+from worldrecon.pipeline import WorldMirrorPipeline
+from worldrecon.hyworldmirror.utils.inference_utils import (
     prepare_images_to_tensor,
     compute_adaptive_target_size,
     compute_sky_mask,
     compute_filter_mask,
     _voxel_prune_gaussians,
 )
-from .hyworldmirror.utils.visual_util import convert_predictions_to_glb_scene
-from .hyworldmirror.utils.save_utils import (
+from hyworldmirror.utils.visual_util import convert_predictions_to_glb_scene
+from hyworldmirror.utils.save_utils import (
     save_camera_params,
     save_gs_ply,
     convert_gs_to_ply,
     process_ply_to_splat,
 )
-from .hyworldmirror.models.utils.geometry import depth_to_world_coords_points
+from hyworldmirror.models.utils.geometry import depth_to_world_coords_points
 
 # ---------------------------------------------------------------------------
 # Global state
@@ -68,7 +68,7 @@ current_terminal_output = ""
 
 
 def _init_pipeline_args(
-    pretrained_model_name_or_path="tencent/HY-World-2.0",
+    pretrained_model_name_or_path="/data/1001/active_mods/HY-World-2.0/",
     config_path=None,
     ckpt_path=None,
     use_fsdp=False,
@@ -778,9 +778,9 @@ def build_demo(examples_dir="./examples/worldrecon"):
                                           label="Video Sample Interval (s)", scale=4)
                 resample_btn = gr.Button("Resample", scale=1, elem_classes=["normal-weight-btn"])
                 image_gallery = gr.Gallery(label="Image Preview", columns=4, height="200px",
-                                           show_download_button=True, object_fit="contain", preview=True)
+                                           buttons=["download", "share"], object_fit="contain", preview=True)
                 terminal_output = gr.Textbox(label="Terminal Output", lines=6, max_lines=6,
-                                             interactive=False, show_copy_button=True,
+                                             interactive=False, buttons=["copy"],
                                              elem_classes=["terminal-output"], autoscroll=True)
 
             # ---------- Center column: Visualization ----------
@@ -797,13 +797,13 @@ def build_demo(examples_dir="./examples/worldrecon"):
 
                     with gr.Tab("Depth"):
                         depth_view_info = gr.HTML(update_view_info(1, 1))
-                        depth_view_slider = gr.Slider(1, 1, step=1, value=1, label="View")
+                        depth_view_slider = gr.Slider(0, 1, step=1, value=1, label="View")
                         depth_map = gr.Image(type="numpy", label="Depth Map", format="png",
                                              interactive=False, height=340)
 
                     with gr.Tab("Normal"):
                         normal_view_info = gr.HTML(update_view_info(1, 1, "Normal"))
-                        normal_view_slider = gr.Slider(1, 1, step=1, value=1, label="View")
+                        normal_view_slider = gr.Slider(0, 1, step=1, value=1, label="View")
                         normal_map = gr.Image(type="numpy", label="Normal Map", format="png",
                                               interactive=False, height=340)
 
@@ -982,7 +982,7 @@ if __name__ == "__main__":
     parser.add_argument("--share", action="store_true")
     parser.add_argument("--config_path", type=str, default=None,
                         help="Training config YAML (used with --ckpt_path)")
-    parser.add_argument("--pretrained_model_name_or_path", type=str, default="tencent/HY-World-2.0",
+    parser.add_argument("--pretrained_model_name_or_path", type=str, default="/data/1001/active_mods/HY-World-2.0/",
                         help="HuggingFace repo ID or local path")
     parser.add_argument("--ckpt_path", type=str, default=None,
                         help="Local checkpoint file (.ckpt / .safetensors)")

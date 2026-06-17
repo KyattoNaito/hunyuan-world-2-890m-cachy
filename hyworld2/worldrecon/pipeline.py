@@ -249,7 +249,7 @@ class WorldMirrorPipeline:
     @classmethod
     def from_pretrained(
         cls,
-        pretrained_model_name_or_path: str = "tencent/HY-World-2.0",
+        pretrained_model_name_or_path: str = "/data/1001/active_mods/HY-World-2.0/",
         *,
         subfolder: str = "HY-WorldMirror-2.0",
         config_path: str = None,
@@ -702,7 +702,7 @@ def main():
     parser.add_argument("--output_path", type=str, default="inference_output")
     parser.add_argument("--strict_output_path", type=str, default=None,
                         help="If set, save results directly to this path (no subdir/timestamp)")
-    parser.add_argument("--pretrained_model_name_or_path", type=str, default="tencent/HY-World-2.0",
+    parser.add_argument("--pretrained_model_name_or_path", type=str, default="/data/1001/active_mods/HY-World-2.0/",
                         help="HuggingFace repo ID or local path")
     parser.add_argument("--subfolder", type=str, default="HY-WorldMirror-2.0",
                         help="Subfolder inside the repo containing WorldMirror weights")

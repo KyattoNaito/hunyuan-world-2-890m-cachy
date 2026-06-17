@@ -99,7 +99,7 @@ class HunyuanPanoPipeline:
     """
 
     DEFAULT_MODEL_ID = "Qwen/Qwen-Image-Edit-2509"
-    DEFAULT_LORA_PATH = "tencent/HY-World-2.0"
+    DEFAULT_LORA_PATH = "/data/1001/active_mods/HY-World-2.0/tencent/HY-World-2.0"
     DEFAULT_LORA_SUBFOLDER = "HY-Pano-2.0"
 
     def __init__(self, pipe: PanoDiffusionPipeline):
