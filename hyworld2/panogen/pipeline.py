@@ -44,7 +44,7 @@ from PIL import Image
 from hunyuan_image_3 import HunyuanImage3ForCausalMM
 
 PANO_INSTRUCTION = "Expand this image to a 360-degree equirectangular panorama."
-
+PANO_INSTRUCTION="Expand this image to a 360-degree equirectangular panorama. Maintain realistic style."
 
 # ============================================================
 # Utility functions
@@ -302,7 +302,7 @@ class HunyuanPanoPipeline:
 
 def parse_args():
     parser = argparse.ArgumentParser("Commandline arguments for running HunyuanImage-3 panorama locally")
-    parser.add_argument("--image", type=str, required=True, help="Path to the input image")
+    parser.add_argument("--image", type=str, default="/home/catknight/Lowee_city.webp", help="Path to the input image")
     parser.add_argument("--prompt", type=str, default=PANO_INSTRUCTION, help="Prompt to run")
     parser.add_argument("--max_new_tokens", type=int, default=2048, help="Maximum number of new tokens to generate")
     parser.add_argument("--seed", type=int, default=None, help="Random seed. Use None for random seed.")
@@ -387,7 +387,7 @@ def parse_args():
     )
 
     parser.add_argument("--pretrained-model-name-or-path", type=str,
-                        default=HunyuanPanoPipeline.DEFAULT_MODEL_ID,
+                        default="/data/1001/active_mods/HY-World-2.0/",
                         help="HuggingFace repo ID or local path to the model")
     parser.add_argument("--subfolder", type=str,
                         default=HunyuanPanoPipeline.DEFAULT_SUBFOLDER,
@@ -397,7 +397,7 @@ def parse_args():
     parser.add_argument("--moe-impl", type=str, default="eager", choices=["eager", "flashinfer"],
                         help="MoE implementation. 'flashinfer' requires FlashInfer to be installed.")
 
-    parser.add_argument("--save", type=str, default=None,
+    parser.add_argument("--save", type=str, default="/home/catknight/Lowee_city_panorama.png",
                         help="Path to save the generated image (default: <input_stem>_panorama.png)")
     parser.add_argument("--reproduce", action="store_true", help="Whether to reproduce the results")
 

@@ -378,10 +378,10 @@ class HunyuanImage3ImageProcessor(object):
             pixel_attention_mask = kwargs["pixel_attention_mask"]  # seq_len
             tensor.i = ImageInfo(
                 image_type=image_type,
-                image_width=spatial_shapes[1].item() * self.vit_info.w_factor,
-                image_height=spatial_shapes[0].item() * self.vit_info.h_factor,
-                token_width=spatial_shapes[1].item(),
-                token_height=spatial_shapes[0].item(),
+                image_width=spatial_shapes[0][1]* self.vit_info.w_factor,
+                image_height=spatial_shapes[0][0] * self.vit_info.h_factor,
+                token_width=spatial_shapes[0][1],
+                token_height=spatial_shapes[0][0],
                 image_token_length=self.vit_info.max_token_length,
                 ori_image_width=ori_image_width,
                 ori_image_height=ori_image_height,
@@ -438,7 +438,7 @@ class HunyuanImage3ImageProcessor(object):
         origin_size = image.size
         # Process image through ViT processor
         inputs = self.vit_info.processor(image)
-        image = inputs["pixel_values"].squeeze(0)   # (seq_len, dim)
+        image = inputs["pixel_values"][0]  # (seq_len, dim)
 
         # Extract additional processor outputs (spatial shapes, attention masks, etc.)
         remain_keys = set(inputs.keys()) - {"pixel_values"}

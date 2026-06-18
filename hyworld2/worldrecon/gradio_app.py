@@ -797,13 +797,13 @@ def build_demo(examples_dir="./examples/worldrecon"):
 
                     with gr.Tab("Depth"):
                         depth_view_info = gr.HTML(update_view_info(1, 1))
-                        depth_view_slider = gr.Slider(0, 1, step=1, value=1, label="View")
+                        depth_view_slider = gr.Slider(0, 2, step=1, value=1, label="View")
                         depth_map = gr.Image(type="numpy", label="Depth Map", format="png",
                                              interactive=False, height=340)
 
                     with gr.Tab("Normal"):
                         normal_view_info = gr.HTML(update_view_info(1, 1, "Normal"))
-                        normal_view_slider = gr.Slider(0, 1, step=1, value=1, label="View")
+                        normal_view_slider = gr.Slider(0, 2, step=1, value=1, label="View")
                         normal_map = gr.Image(type="numpy", label="Normal Map", format="png",
                                               interactive=False, height=340)
 
